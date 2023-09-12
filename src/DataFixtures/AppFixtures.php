@@ -38,6 +38,12 @@ class AppFixtures extends Fixture
             "kjs bvfksbs kvbk",
             "kcj kvjsskj fcks",
         ];
+        $vehiclesPicturesPaths = [
+            "/image/1.webp",
+            "/image/2.webp",
+            "/image/3.webp",
+            "/image/4.webp",
+        ];
 
         foreach ($brandsNames as $key => $brandName) {
             $brand = new Brand();
@@ -59,6 +65,7 @@ class AppFixtures extends Fixture
             $vehicle->setNumberPlate($vehiclesPlates[$key]);
             $vehicle->setYear(rand(1, 10));
             $vehicle->setNumberKilometers(rand(10000, 100000));
+            $vehicle->setPicturePath($vehiclesPicturesPaths[$key]);
             $vehicle->setModel($model);
             $vehicle->setType($type);
             $manager->persist($vehicle);

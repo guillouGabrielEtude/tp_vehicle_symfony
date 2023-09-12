@@ -14,6 +14,7 @@
     <ul>
         {% for vehicle in vehicles %}
         <li>
+            <img src="{{ vehicle.picturePath }}" alt="vehicle picture">
             {{ vehicle.model.brand.name }} {{ vehicle.model.name }} type {{ vehicle.type.name }}
         </li>
         {% endfor %}

@@ -45,6 +45,9 @@ class Vehicle
     #[ORM\ManyToMany(targetEntity: Option::class, inversedBy: 'vehicles')]
     private Collection $options;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picturePath = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -190,6 +193,18 @@ class Vehicle
     public function removeOption(Option $option): static
     {
         $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getPicturePath(): ?string
+    {
+        return $this->picturePath;
+    }
+
+    public function setPicturePath(?string $picturePath): static
+    {
+        $this->picturePath = $picturePath;
 
         return $this;
     }
