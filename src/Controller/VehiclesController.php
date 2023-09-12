@@ -3,16 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Vehicle;
-use App\Repository\VehicleRepository;
-
 use App\Entity\Model;
-use App\Repository\ModelRepository;
-
 use App\Entity\Brand;
-use App\Repository\BrandRepository;
-
 use App\Entity\Type;
-use App\Repository\TypeRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
