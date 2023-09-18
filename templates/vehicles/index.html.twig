@@ -3,22 +3,36 @@
 {% block title %}Vehicles{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
     <h1>Vehicles List</h1>
 
-    <ul>
-        {% for vehicle in vehicles %}
-        <li>
-            <img src="{{ vehicle.picturePath }}" alt="vehicle picture">
-            {{ vehicle.model.brand.name }} {{ vehicle.model.name }} type {{ vehicle.type.name }}
-        </li>
-        {% endfor %}
-    </ul>
-
-</div>
+    <div class="container">
+        <div class="row justify-content-center row-gap-2 column-gap-2">
+            {% for vehicle in vehicles %}
+                <div class="card p-0 column-gap-2" style="width: 15rem;">
+                    <img src="{{ vehicle.picturePath }}" class="card-img-top" alt="vehicle picture">
+                    <h5 class="card-title text-center">
+                        {{ vehicle.model.brand.name }}
+                        {{ vehicle.model.name }}
+                    </h5>
+                    <div class="card-body d-flex flex-column justify-content-between p-2">
+                        <table class="mb-2 table">
+                            <tr>
+                                <th class="w-25">Model</th>
+                                <td class="w-50">{{ vehicle.model.name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="w-25">Brand</th>
+                                <td class="w-50">{{ vehicle.model.brand.name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="w-25">Type</th>
+                                <td class="w-50">{{ vehicle.type.name }}</td>
+                            </tr>
+                        </table>
+                        <a href="/vehicles/{{ vehicle.id }}" class="btn btn-primary">This Vehicle</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

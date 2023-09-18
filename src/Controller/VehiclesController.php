@@ -24,4 +24,14 @@ class VehiclesController extends AbstractController
             "vehicles" => $vehicles,
         ]);
     }
+    #[Route('/vehicles/{id}', name: 'app_vehicle')]
+    public function vehicle(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $vehicle = $entityManager->getRepository(Vehicle::class)->find($id);
+
+        return $this->render('vehicle/index.html.twig', [
+            'controller_name' => 'VehiclesController',
+            "vehicle" => $vehicle,
+        ]);
+    }
 }
