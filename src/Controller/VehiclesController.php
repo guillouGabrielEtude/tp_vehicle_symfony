@@ -7,8 +7,10 @@ use App\Entity\Model;
 use App\Entity\Brand;
 use App\Entity\Type;
 
+use App\Form\VehicleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,17 +23,43 @@ class VehiclesController extends AbstractController
 
         return $this->render('vehicles/index.html.twig', [
             'controller_name' => 'VehiclesController',
-            "vehicles" => $vehicles,
+            'vehicles' => $vehicles,
         ]);
     }
-    #[Route('/vehicles/{id}', name: 'app_vehicle')]
-    public function vehicle(EntityManagerInterface $entityManager, int $id): Response
+    #[Route('/vehicle/details/{id}', name: 'details_vehicle')]
+    public function detailsVehicle(EntityManagerInterface $entityManager, int $id): Response
     {
         $vehicle = $entityManager->getRepository(Vehicle::class)->find($id);
 
-        return $this->render('vehicle/index.html.twig', [
-            'controller_name' => 'VehiclesController',
-            "vehicle" => $vehicle,
+        return $this->render('vehicles/details.html.twig', [
+            'controller_name' => 'detailsVehicle',
+            'vehicle' => $vehicle,
+        ]);
+    }
+    #[Route('/vehicle/edit/{id?}', name: 'edit_vehicle')]
+    public function editVehicle(Request $request, EntityManagerInterface $entityManager, ?int $id): Response
+    {
+        if ($id != null) {
+            $vehicle = $entityManager->getRepository(Vehicle::class)->find($id);
+        } else {
+            $vehicle = new Vehicle();
+        }
+
+        $form = $this->createForm(VehicleType::class, $vehicle);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $vehicle = $form->getData();
+
+            $entityManager->persist($vehicle);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("details_vehicle", ["id"=>$vehicle->getId()]);
+        }
+
+        return $this->render('vehicles/edit.html.twig', [
+            'controller_name' => 'editVehicle',
+            'form' => $form,
         ]);
     }
 }

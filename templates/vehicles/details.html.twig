@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '/base.html.twig' %}
 
 {% block title %}Vehicle{% endblock %}
 
@@ -26,6 +26,8 @@
                             <td class="w-50">{{ vehicle.type.name }}</td>
                         </tr>
                     </table>
+                    <a href="{{ path('edit_vehicle', {'id': vehicle.id}) }}"
+                       class="btn btn-success w-100">Edit Vehicle</a>
                 </div>
             </div>
         </div>

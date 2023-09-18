@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-center row-gap-2 column-gap-2">
             {% for vehicle in vehicles %}
-                <div class="card p-0 column-gap-2" style="width: 15rem;">
+                <div class="card p-0 column-gap-2" style="width: 17rem;">
                     <img src="{{ vehicle.picturePath }}" class="card-img-top" alt="vehicle picture">
                     <h5 class="card-title text-center">
                         {{ vehicle.model.brand.name }}
@@ -29,7 +29,12 @@
                                 <td class="w-50">{{ vehicle.type.name }}</td>
                             </tr>
                         </table>
-                        <a href="/vehicles/{{ vehicle.id }}" class="btn btn-primary">This Vehicle</a>
+                        <div class="d-flex flex-row gap-2">
+                            <a href="{{ path('details_vehicle', {'id': vehicle.id}) }}"
+                               class="btn btn-primary w-50">Show Vehicle</a>
+                            <a href="{{ path('edit_vehicle', {'id': vehicle.id}) }}"
+                               class="btn btn-success w-50">Edit Vehicle</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
