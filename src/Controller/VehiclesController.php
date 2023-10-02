@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VehiclesController extends AbstractController
 {
-    #[Route('/vehicles', name: 'app_vehicles')]
+    #[Route('/', name: 'app_vehicles')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $vehicles = $entityManager->getRepository(Vehicle::class)->findAll();
@@ -26,6 +26,27 @@ class VehiclesController extends AbstractController
             'vehicles' => $vehicles,
         ]);
     }
+    /*
+     * Recherche
+     *
+    #[Route('/vehicles/by_type_date/{startDate}/{endDate}/{typeId}', name: 'app_vehicles_by_type_date')]
+    public function listByTypeDate(
+        EntityManagerInterface $entityManager,
+        string $startDate,
+        string $endDate,
+        int $typeId,
+    ): Response
+    {
+        $vehicles = $entityManager->createQuery(
+            'SELECT v FROM App\Entity\Vehicle v'
+        )->getResult();
+
+        return $this->render('vehicles/index.html.twig', [
+            'controller_name' => 'VehiclesController',
+            'vehicles' => $vehicles,
+        ]);
+    }
+    */
     #[Route('/vehicle/details/{id}', name: 'details_vehicle')]
     public function detailsVehicle(EntityManagerInterface $entityManager, int $id): Response
     {

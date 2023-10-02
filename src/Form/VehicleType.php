@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
+use App\Entity\Type;
 use App\Entity\Vehicle;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,9 +22,16 @@ class VehicleType extends AbstractType
             ->add('year', null, ['label' => 'Year'])
             ->add('numberKilometers', null, ['label' => 'Kilometers Count'])
             ->add('picturePath', null, ['label' => 'Picture Path'])
-         //   ->add('model', null, ['label' => 'Model'])
-         //   ->add('type', null, ['label' => 'Type'])
-          //  ->add('options', null, ['label' => 'Options'])
+            ->add('type', EntityType::class, [
+                'class' => Type::class,
+                'choice_label' => 'name'
+            ])
+            ->add('options', EntityType::class, [
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+            ])
             ->add('submit', SubmitType::class, ['label' => 'Submit'])
         ;
     }
